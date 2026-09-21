@@ -57,7 +57,7 @@ VS Code tasks provide **Matrix: Validate**, **Matrix: Build**, and **Matrix: Pre
 
 Before the first deployment, choose **Settings > Pages > Source: GitHub Actions**, then set the repository Actions variable `PAGES_ENABLED` to `true`. Run the workflow manually or push to `main`. Deployment uses the `github-pages` environment with `pages: write` and `id-token: write`; the build has read-only repository permissions.
 
-The repository is `Infra-as-code-ICA0024-TalTech/tool-matrix`, with the project site at `https://infra-as-code-ica0024-taltech.github.io/tool-matrix/` once deployment is enabled and succeeds. On the organization's Free plan, Pages requires a public repository; the repository is private with the organization's existing member permissions, and Pages publication is pending approval of public visibility.
+The repository is public at [Infra-as-code-ICA0024-TalTech/tool-matrix](https://github.com/Infra-as-code-ICA0024-TalTech/tool-matrix). GitHub Pages is enabled with GitHub Actions as its source and `PAGES_ENABLED=true`. The project site is [ICA0024 tool matrix](https://infra-as-code-ica0024-taltech.github.io/tool-matrix/); successful pushes to `main` publish updates automatically.
 
 References: [GitHub Pages availability](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages), [custom Pages workflows](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
 
