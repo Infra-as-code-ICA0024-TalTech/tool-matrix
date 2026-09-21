@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore the ICA0024 lecture tool matrix. Filter infrastructure and demo tools, compare six criteria, and inspect the source CSV.">
+  <title>Tool matrix · ICA0024</title>
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#comparison">Skip to comparison</a>
+  <header>
+    <a class="course" href="https://github.com/Infra-as-code-ICA0024-TalTech/tool-matrix">ICA0024 <span>Infrastructure as Code</span></a>
+    <a href="data/tool-matrix.csv" download>Download CSV</a>
+  </header>
+  <main>
+    <div class="intro"><h1>Tool matrix</h1><p>Explore the lecture’s six criteria. Select tools to compare their profiles, then inspect the values and demo references below.</p></div>
+    <p id="error" role="alert" hidden></p>
+    <noscript><p>Enable JavaScript to filter the chart, or <a href="data/tool-matrix.csv">read the CSV</a>.</p></noscript>
+    <div class="workspace">
+      <aside aria-label="Comparison filters">
+        <label for="search">Find a tool or demo</label><input id="search" type="search" placeholder="e.g. Packer or demo-03c" autocomplete="off">
+        <label for="category">Tool category</label><select id="category"><option value="">All categories</option></select>
+        <div class="filter-actions"><button id="select-all" type="button">Select all</button><button id="clear" type="button">Clear</button></div>
+        <fieldset><legend>Tools</legend><div id="tool-list"><p>Loading tools…</p></div></fieldset>
+      </aside>
+      <section id="comparison" aria-labelledby="chart-heading">
+        <div class="chart-heading"><h2 id="chart-heading">SM index</h2><span>0–10 scale</span></div>
+        <p id="status" role="status" aria-live="polite">Loading comparison…</p>
+        <svg id="radar" viewBox="0 0 800 620" role="img" aria-labelledby="radar-title radar-description"></svg>
+        <p id="empty" hidden>Select a scored tool to draw its profile. Tools without scores remain visible in the table.</p>
+        <div id="legend" class="legend" aria-label="Plotted tools"></div>
+        <p class="source-note">The three scored profiles are transcribed from the supplied lecture slide. Additional demo tools await scoring; blank values are not zero. These are lecture ratings, not current benchmark results. <a href="assets/source-chart.png">View source chart</a>.</p>
+      </section>
+    </div>
+    <section class="values" aria-labelledby="values-heading">
+      <h2 id="values-heading">Values and demo references</h2>
+      <p>The table follows your filters. Demo links require access to the course repositories.</p>
+      <div class="table-scroll" tabindex="0" role="region" aria-label="Tool scores and evidence"><table>
+        <caption class="sr-only">Selected tools and their six scores on a scale of zero to ten. A dash means no score is available.</caption>
+        <thead><tr><th scope="col">Tool</th><th scope="col">Idempotent</th><th scope="col">Declarative</th><th scope="col">Query</th><th scope="col">Execution</th><th scope="col">Modularity</th><th scope="col">Documentation</th><th scope="col">Used in / evidence</th></tr></thead>
+        <tbody id="values"></tbody>
+      </table></div>
+    </section>
+    <details class="method"><summary>About the criteria and tool inventory</summary>
+      <p>The slide supplies the labels and scores but no scoring rubric, version list, or assessment date. The labels are retained without assigning new definitions or guessing additional scores. “SM index” is the title used on the source image.</p>
+      <p>The catalog includes infrastructure automation, workflow tools, and runtimes explicitly used or documented in demos 01–06, including the 03 and 04 variants. Kubernetes is retained from the source slide. Deployed application services and individual operating-system utilities are outside this automation-tool inventory. Optional tools are labeled in their evidence notes.</p>
+      <p>Edit <a href="https://github.com/Infra-as-code-ICA0024-TalTech/tool-matrix/blob/main/site/data/tool-matrix.csv">the CSV in the repository</a> to revise the catalog or add reviewed scores. Keep the scoring source and context with each row.</p>
+    </details>
+  </main>
+  <footer><span>ICA0024 teaching materials</span><a href="https://github.com/Infra-as-code-ICA0024-TalTech/tool-matrix">Source &amp; data</a></footer>
+</body>
+</html>
