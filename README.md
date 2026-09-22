@@ -1,12 +1,12 @@
 # ICA0024 tool matrix
 
-An interactive version of the supplied **SM INDEX** lecture chart, extended with an inventory of automation tools and supporting tools used or documented in the course demos. Filter tools by name, demo, or category. Selection is reflected in both the radar chart and exact-value table and is preserved in the page URL.
+An interactive version of the supplied **SM INDEX** lecture chart, extended with infrastructure-as-code tools used or documented in the course demos. Filter tools by name, demo, or category. Selection is reflected in both the radar chart and exact-value table and is preserved in the page URL.
 
 ## Data and scope
 
 Edit [site/data/tool-matrix.csv](site/data/tool-matrix.csv). It is the only source for tool names, scores, categories, demo references, and notes. No scores are duplicated in the page code.
 
-The CSV contains **32 tools**. The three scored profiles were visually transcribed from the supplied [source image](site/assets/source-chart.png):
+The CSV contains **11 tools**. The three scored profiles were visually transcribed from the supplied [source image](site/assets/source-chart.png):
 
 | Tool | Idempotent | Declarative | Query | Execution | Modularity | Documentation |
 |---|---:|---:|---:|---:|---:|---:|
@@ -16,22 +16,21 @@ The CSV contains **32 tools**. The three scored profiles were visually transcrib
 
 Scores use the slide's 0–10 scale. The image does not provide a rubric, tool versions, or an assessment date. Its scores are preserved as teaching material, not presented as current independent benchmarks. The expansion of “SM” is not specified in the image.
 
-The additional 29 tools have **blank scores**, recorded as `unscored`. No numeric ratings were inferred from the mere presence of a tool in a demo. Missing values appear as dashes in the table; only tools with all six scores are plotted. A numeric zero is a real score, not a missing value. To add scores, fill the six numeric cells and update `score_source` and `notes` with the rating method, context, and review date.
+The additional 8 tools have **blank scores**, recorded as `unscored`. No numeric ratings were inferred from the mere presence of a tool in a demo. Missing values appear as dashes in the table; only tools with all six scores are plotted. A numeric zero is a real score, not a missing value. To add scores, fill the six numeric cells and update `score_source` and `notes` with the rating method, context, and review date.
 
-The inventory was reviewed on 21 September 2026 across the local demo repositories: `demo-01`, `demo-02`, `demo-03a` through `demo-03e`, `demo-04a` through `demo-04d`, `demo-05`, and `demo-06`. It includes:
+The IaC-only inventory was reviewed on 22 September 2026 across the local demo repositories: `demo-01`, `demo-02`, `demo-03a` through `demo-03e`, `demo-04a` through `demo-04d`, `demo-05`, and `demo-06`. It includes:
 
 - Infrastructure definition, configuration, image-building, and orchestration tools.
-- Explicit supporting workflow tools, testing tools, installation managers, and runtimes documented in the demos. Optional tools are identified in the notes.
 - Kubernetes from the source slide, clearly marked as not found as a deployment tool in the inspected demos.
 
-The scope excludes deployed application services (such as the web server and database), individual libraries, and general operating-system utilities installed as base packages. Puppet/OpenVox and Chef/Cinc are represented as tool-family/distribution pairs; they are not counted twice. Demo references link to the private teaching repositories and require course access. No demo source contents, credentials, state files, or deployment outputs are copied here.
+The scope includes tools that directly define, provision, configure, initialize, or orchestrate infrastructure from code. It excludes supporting workflow and testing tools, general-purpose CLIs and shells, version control, runtimes, package managers, container runtimes used for testing, deployed application services, and individual libraries. Packer and cloud-init remain because they define machine images and initialization; Bolt remains for infrastructure orchestration. Puppet/OpenVox and Chef/Cinc are represented as tool-family/distribution pairs; they are not counted twice. Demo references link to the private teaching repositories and require course access. No demo source contents, credentials, state files, or deployment outputs are copied here.
 
 ### CSV columns
 
 `tool`, `idempotent`, `declarative`, `query`, `execution`, `modularity`, `documentation`, `category`, `demos`, `evidence`, `score_source`, `notes`.
 
 - Scores: a number from 0 through 10, or a blank field.
-- Category: currently `Infrastructure`, `Workflow`, or `Runtime`.
+- Category: `Infrastructure` for the current IaC-only inventory.
 - Demos: semicolon-separated repository names.
 - Evidence: semicolon-separated `demo-name/path/to/file` references, or `assets/source-chart.png` for the slide.
 - Quote a CSV field containing commas, quotes, or newlines using standard CSV escaping.

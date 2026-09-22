@@ -10,24 +10,3 @@ Salt,,,,,,,Infrastructure,demo-03e,demo-03e/README.md;demo-03e/50_provision.sh,u
 CDK Terrain,,,,,,,Infrastructure,demo-04c,demo-04c/README.md;demo-04c/run.sh,unscored,Python infrastructure definitions synthesized for Terraform execution.
 Pulumi,,,,,,,Infrastructure,demo-04d,demo-04d/README.md,unscored,Infrastructure definitions and deployment using Python.
 cloud-init,,,,,,,Infrastructure,demo-02,demo-02/scripts/ubuntu/cloud-init.sh;demo-02/tests/test.tf,unscored,Machine initialization; image building waits for initialization to finish.
-AWS CLI,,,,,,,Workflow,demo-01;demo-02;demo-03a;demo-03c;demo-03d;demo-03e;demo-04a;demo-04b;demo-04c;demo-04d,demo-01/README.md;demo-02/scripts/ubuntu/aws-cli.sh;demo-04a/00_bootstrap.sh,unscored,"Cloud access, resource queries, and bootstrap operations."
-Bash,,,,,,,Workflow,demo-02;demo-03a;demo-03c;demo-03d;demo-03e;demo-04a;demo-04b;demo-04c;demo-04d,demo-03a/00_create.sh;demo-03d/provisioning/bin/converge.sh,unscored,Shell entry points and automation steps.
-Git,,,,,,,Workflow,demo-02,demo-02/scripts/ubuntu/git.sh,unscored,Installed in the custom development image; demo definitions are version-controlled.
-Transcrypt,,,,,,,Workflow,demo-02,demo-02/scripts/ubuntu/git.sh,unscored,Git-based file encryption tooling installed in the custom image.
-OpenSSH,,,,,,,Workflow,demo-01;demo-03a;demo-03c;demo-03d;demo-03e,demo-01/README.md;demo-03c/README.md;demo-03d/README.md,unscored,SSH connections and SCP transfers for provisioning and checks.
-rsync,,,,,,,Workflow,demo-03c;demo-03d,demo-03c/README.md;demo-03d/50_provision.sh,unscored,Synchronizes provisioning content to remote machines.
-Docker,,,,,,,Workflow,demo-05,demo-05/molecule/default/molecule.yml;demo-05/.github/workflows/ci.yml,unscored,Container driver for role tests; configured in the demo CI workflow.
-Molecule,,,,,,,Workflow,demo-05,demo-05/.github/workflows/ci.yml;demo-05/molecule/default/molecule.yml,unscored,Ansible role test scenarios.
-yamllint,,,,,,,Workflow,demo-05,demo-05/.github/workflows/ci.yml,unscored,YAML linting in the demo CI workflow.
-GitHub Actions,,,,,,,Workflow,demo-05,demo-05/.github/workflows/ci.yml,unscored,Runs lint and role-test jobs in the repository workflow.
-Pipenv,,,,,,,Workflow,demo-04c,demo-04c/README.md;demo-04c/setup.sh,unscored,Python dependency environment for CDK Terrain.
-pip,,,,,,,Workflow,demo-01;demo-03a;demo-03b;demo-05,demo-01/README.md;demo-03b/README.md;demo-05/.github/workflows/ci.yml,unscored,Installs controller and test dependencies.
-pipx,,,,,,,Workflow,demo-03e,demo-03e/README.md,unscored,Documented Salt CLI installation method.
-Bundler,,,,,,,Workflow,demo-03c,demo-03c/README.md;demo-03c/Gemfile,unscored,Locked Ruby environment for OpenBolt and OpenVox tools.
-Homebrew,,,,,,,Workflow,demo-03c;demo-03d;demo-03e;demo-04d,demo-03c/README.md;demo-03d/README.md;demo-04d/README.md,unscored,Documented macOS setup commands; some package installation paths are optional.
-npm,,,,,,,Workflow,demo-03a;demo-03c;demo-03d;demo-03e,demo-03a/provisioning/roles/web/tasks/main.yml,unscored,Installs application dependencies as part of provisioning.
-curl,,,,,,,Workflow,demo-04a;demo-04b;demo-04c;demo-04d,demo-04a/README.md;demo-04d/README.md,unscored,HTTP checks of deployed services.
-Cookstyle,,,,,,,Workflow,demo-03d,demo-03d/README.md,unscored,Optional cookbook linting documented with Cinc Workstation.
-Python,,,,,,,Runtime,demo-01;demo-03a;demo-03b;demo-03c;demo-03d;demo-03e;demo-04c;demo-04d,demo-01/README.md;demo-04c/README.md;demo-04d/README.md,unscored,Automation runtime and infrastructure definition language in the Python demos.
-Ruby,,,,,,,Runtime,demo-03c;demo-03d,demo-03c/README.md;demo-03d/README.md,unscored,"Runtime for the Puppet/OpenVox, Bolt, and Chef/Cinc tooling."
-Node.js,,,,,,,Runtime,demo-03a;demo-03c;demo-03d;demo-03e;demo-04c,demo-03a/README.md;demo-04c/README.md,unscored,Runtime for the demo application and the CDK Terrain interoperability layer.

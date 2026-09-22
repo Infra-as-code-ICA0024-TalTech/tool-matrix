@@ -25,7 +25,8 @@ test('filters support subset, no selection, category and demo search',()=>{
   const selected=new Set(tools.map(t=>t.tool));
   assert.equal(filterTools(tools,new Set()).length,0);
   assert.deepEqual(filterTools(tools,new Set(['Terraform'])).map(t=>t.tool),['Terraform']);
-  assert.ok(filterTools(tools,selected,'Runtime').every(t=>t.category==='Runtime'));
+  assert.deepEqual(filterTools(tools,selected,'Infrastructure'),tools);
+  assert.equal(filterTools(tools,selected,'Runtime').length,0);
   assert.ok(filterTools(tools,selected,'','demo-03c').some(t=>t.tool==='Puppet (OpenVox)'));
 });
 test('radar uses the source axis order and a zero-to-ten scale',()=>{

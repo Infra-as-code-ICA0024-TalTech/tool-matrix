@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Explore the ICA0024 lecture tool matrix. Filter infrastructure and demo tools, compare six criteria, and inspect the source CSV.">
+  <meta name="description" content="Explore the ICA0024 lecture tool matrix. Filter infrastructure-as-code tools, compare six criteria, and inspect the source CSV.">
   <title>Tool matrix · ICA0024</title>
   <link rel="stylesheet" href="styles.css">
   <script type="module" src="app.js"></script>
@@ -15,7 +15,7 @@
     <a href="data/tool-matrix.csv" download>Download CSV</a>
   </header>
   <main>
-    <div class="intro"><h1>Tool matrix</h1><p>Explore the lecture’s six criteria. Select tools to compare their profiles, then inspect the values and demo references below.</p></div>
+    <div class="intro"><h1>Tool matrix</h1><p>Explore the lecture’s six criteria. Select IaC tools to compare their profiles, then inspect the values and demo references below.</p></div>
     <p id="error" role="alert" hidden></p>
     <noscript><p>Enable JavaScript to filter the chart, or <a href="data/tool-matrix.csv">read the CSV</a>.</p></noscript>
     <div class="workspace">
@@ -45,7 +45,7 @@
     </section>
     <details class="method"><summary>About the criteria and tool inventory</summary>
       <p>The slide supplies the labels and scores but no scoring rubric, version list, or assessment date. The labels are retained without assigning new definitions or guessing additional scores. “SM index” is the title used on the source image.</p>
-      <p>The catalog includes infrastructure automation, workflow tools, and runtimes explicitly used or documented in demos 01–06, including the 03 and 04 variants. Kubernetes is retained from the source slide. Deployed application services and individual operating-system utilities are outside this automation-tool inventory. Optional tools are labeled in their evidence notes.</p>
+      <p>The catalog includes tools that define, provision, configure, initialize, or orchestrate infrastructure from code, used or documented in demos 01–06 and their variants. Kubernetes is retained from the source slide. Image building with Packer, initialization with cloud-init, and orchestration with Bolt are included. Supporting utilities, runtimes, package managers, testing tools, and application services are excluded.</p>
       <p>Edit <a href="https://github.com/Infra-as-code-ICA0024-TalTech/tool-matrix/blob/main/site/data/tool-matrix.csv">the CSV in the repository</a> to revise the catalog or add reviewed scores. Keep the scoring source and context with each row.</p>
     </details>
   </main>
