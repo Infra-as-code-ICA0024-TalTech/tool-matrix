@@ -5,10 +5,12 @@ import {parseMatrix, parseCSV, COLUMNS, METRICS, isScored, filterTools, radarPoi
 
 const csv = await readFile(new URL('../site/data/tool-matrix.csv',import.meta.url),'utf8');
 const tools = parseMatrix(csv);
-test('source slide scores and unknown values are preserved',()=>{
+test('source slide scores, rubric scores and unknown values are preserved',()=>{
   assert.deepEqual(tools.slice(0,3).map(t=>METRICS.map(([k])=>t[k])),[[9,10,5,8,1,5],[4,6,6,3,4,5],[9,9,8,7,6,8]]);
-  assert.equal(tools.filter(isScored).length,3);
-  const packer=tools.find(t=>t.tool==='Packer');
+  assert.equal(tools.filter(isScored).length,tools.length);
+  assert.ok(tools.slice(3).every(t=>t.score_source==='rubric-2026-11-17'));
+  const blank=parseMatrix(csv.replace(/^Packer,3,4,4,5,3,6,/m,'Packer,,,,,,,'));
+  const packer=blank.find(t=>t.tool==='Packer');
   assert.equal(packer.idempotent,null); assert.equal(radarPoints(packer),null);
 });
 test('CSV handles quoted commas, newlines, escaped quotes and CRLF',()=>{
@@ -21,13 +23,14 @@ test('bad scores, duplicates and missing provenance fail validation',()=>{
   assert.throws(()=>parseMatrix('tool,idempotent\nPacker,\n'),/columns/);
   assert.throws(()=>parseMatrix(COLUMNS.join(',')+'\n'+['Empty',...Array(11).fill('')].join(',')),/provenance/);
 });
-test('filters support subset, no selection, category and demo search',()=>{
+test('filters support subset, no selection, category and name search',()=>{
   const selected=new Set(tools.map(t=>t.tool));
   assert.equal(filterTools(tools,new Set()).length,0);
   assert.deepEqual(filterTools(tools,new Set(['Terraform'])).map(t=>t.tool),['Terraform']);
   assert.deepEqual(filterTools(tools,selected,'Infrastructure'),tools);
   assert.equal(filterTools(tools,selected,'Runtime').length,0);
-  assert.ok(filterTools(tools,selected,'','demo-03c').some(t=>t.tool==='Puppet (OpenVox)'));
+  assert.deepEqual(filterTools(tools,selected,'','openvox').map(t=>t.tool),['Puppet (OpenVox)']);
+  assert.equal(filterTools(tools,selected,'','demo-03c').length,0);
 });
 test('radar uses the source axis order and a zero-to-ten scale',()=>{
   const points=radarPoints(tools[0]);

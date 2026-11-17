@@ -48,15 +48,11 @@ legend { font-weight:700; font-size:16px; margin-bottom:12px; }
 table { border-collapse:collapse; width:100%; font-size:14px; }
 th,td { text-align:right; padding:13px 12px; border-bottom:1px solid var(--line); vertical-align:top; font-variant-numeric:tabular-nums; }
 thead { background:var(--ice); }
-th:first-child,td:first-child,th:last-child,td:last-child { text-align:left; }
+th:first-child,td:first-child { text-align:left; }
 tbody th { min-width:180px; font-weight:650; }
 tbody th,thead th:first-child { position:sticky; left:0; background:#fff; z-index:1; }
 thead th:first-child { background:var(--ice); }
-tbody th small { display:block; font-weight:400; color:var(--muted); margin-top:3px; }
-td:last-child { min-width:220px; max-width:320px; }
-td:last-child small { display:block; color:var(--muted); margin-top:6px; line-height:1.4; }
 tbody tr:last-child th,tbody tr:last-child td { border-bottom:0; }
-.missing { color:#71818d; }
 .method { border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:20px 0; }
 summary { cursor:pointer; font-weight:650; }
 .method p { color:var(--muted); max-width:85ch; font-size:14px; }

@@ -15,12 +15,12 @@
     <a href="data/tool-matrix.csv" download>Download CSV</a>
   </header>
   <main>
-    <div class="intro"><h1>Tool matrix</h1><p>Explore the lecture’s six criteria. Select IaC tools to compare their profiles, then inspect the values and demo references below.</p></div>
+    <div class="intro"><h1>Tool matrix</h1><p>Explore the lecture’s six criteria. Select IaC tools to compare their profiles, then inspect the exact values below.</p></div>
     <p id="error" role="alert" hidden></p>
     <noscript><p>Enable JavaScript to filter the chart, or <a href="data/tool-matrix.csv">read the CSV</a>.</p></noscript>
     <div class="workspace">
       <aside aria-label="Comparison filters">
-        <label for="search">Find a tool or demo</label><input id="search" type="search" placeholder="e.g. Packer or demo-03c" autocomplete="off">
+        <label for="search">Find a tool</label><input id="search" type="search" placeholder="e.g. Packer" autocomplete="off">
         <label for="category">Tool category</label><select id="category"><option value="">All categories</option></select>
         <div class="filter-actions"><button id="select-all" type="button">Select all</button><button id="clear" type="button">Clear</button></div>
         <fieldset><legend>Tools</legend><div id="tool-list"><p>Loading tools…</p></div></fieldset>
@@ -29,23 +29,32 @@
         <div class="chart-heading"><h2 id="chart-heading">SM index</h2><span>0–10 scale</span></div>
         <p id="status" role="status" aria-live="polite">Loading comparison…</p>
         <svg id="radar" viewBox="0 0 800 620" role="img" aria-labelledby="radar-title radar-description"></svg>
-        <p id="empty" hidden>Select a scored tool to draw its profile. Tools without scores remain visible in the table.</p>
+        <p id="empty" hidden>No tools selected. Select a tool, choose Select all, or adjust your search.</p>
         <div id="legend" class="legend" aria-label="Plotted tools"></div>
-        <p class="source-note">The three scored profiles are transcribed from the supplied lecture slide. Additional demo tools await scoring; blank values are not zero. These are lecture ratings, not current benchmark results. <a href="assets/source-chart.png">View source chart</a>.</p>
+        <p class="source-note">Kubernetes, Ansible and Terraform are transcribed from the lecture slide. The other nine tools are rated on the same scale against those three as anchors (see below). These are lecture ratings, not benchmark results. <a href="assets/source-chart.png">View source chart</a>.</p>
       </section>
     </div>
     <section class="values" aria-labelledby="values-heading">
-      <h2 id="values-heading">Values and demo references</h2>
-      <p>The table follows your filters. Demo links require access to the course repositories.</p>
+      <h2 id="values-heading">Values</h2>
+      <p>The table follows your filters.</p>
       <div class="table-scroll" tabindex="0" role="region" aria-label="Tool scores and evidence"><table>
-        <caption class="sr-only">Selected tools and their six scores on a scale of zero to ten. A dash means no score is available.</caption>
-        <thead><tr><th scope="col">Tool</th><th scope="col">Idempotent</th><th scope="col">Declarative</th><th scope="col">Query</th><th scope="col">Execution</th><th scope="col">Modularity</th><th scope="col">Documentation</th><th scope="col">Used in / evidence</th></tr></thead>
+        <caption class="sr-only">Selected tools and their six scores on a scale of zero to ten.</caption>
+        <thead><tr><th scope="col">Tool</th><th scope="col">Idempotent</th><th scope="col">Declarative</th><th scope="col">Query</th><th scope="col">Execution</th><th scope="col">Modularity</th><th scope="col">Documentation</th></tr></thead>
         <tbody id="values"></tbody>
       </table></div>
     </section>
     <details class="method"><summary>About the criteria and tool inventory</summary>
-      <p>The slide supplies the labels and scores but no scoring rubric, version list, or assessment date. The labels are retained without assigning new definitions or guessing additional scores. “SM index” is the title used on the source image.</p>
-      <p>The catalog includes tools that define, provision, configure, initialize, or orchestrate infrastructure from code, used or documented in demos 01–06 and their variants. Kubernetes is retained from the source slide. Image building with Packer, initialization with cloud-init, and orchestration with Bolt are included. Supporting utilities, runtimes, package managers, testing tools, and application services are excluded.</p>
+      <p>The slide supplies the labels and the three anchor profiles but no written rubric. The other tools were rated on 17 November 2026 using these readings of the labels, calibrated so the slide's own scores stay consistent:</p>
+      <ul>
+        <li><strong>Idempotent</strong>: how far the tool itself guarantees that a repeated run makes no further changes, rather than leaving it to the author.</li>
+        <li><strong>Declarative</strong>: how much of the code states the desired result rather than the steps to reach it.</li>
+        <li><strong>Query</strong>: how well code can look up existing infrastructure and current state (data sources, facts, inventories).</li>
+        <li><strong>Execution</strong>: maturity of the engine: dependency ordering, preview before change, parallelism, and whether it keeps enforcing state after the run.</li>
+        <li><strong>Modularity</strong>: native units of reuse with clear inputs and outputs, and a way to version and share them.</li>
+        <li><strong>Documentation</strong>: how well the code and the tool document the infrastructure: typed and described inputs, readable previews, reference documentation.</li>
+      </ul>
+      <p>Tools are rated as used in the course (for example Puppet and Chef masterless, without PuppetDB or Chef search). “SM index” is the title used on the source image.</p>
+      <p>The catalog includes tools that define, provision, configure, initialize, or orchestrate infrastructure from code and are covered in the course. Kubernetes is retained from the source slide. Image building with Packer, initialization with cloud-init, and orchestration with Bolt are included. Helm is included for packaging and releasing Kubernetes infrastructure. Supporting utilities, runtimes, general-purpose package managers, testing tools, and application services are excluded.</p>
       <p>Edit <a href="https://github.com/Infra-as-code-ICA0024-TalTech/tool-matrix/blob/main/site/data/tool-matrix.csv">the CSV in the repository</a> to revise the catalog or add reviewed scores. Keep the scoring source and context with each row.</p>
     </details>
   </main>

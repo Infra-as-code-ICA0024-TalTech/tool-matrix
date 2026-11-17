@@ -6,7 +6,7 @@ An interactive version of the supplied **SM INDEX** lecture chart, extended with
 
 Edit [site/data/tool-matrix.csv](site/data/tool-matrix.csv). It is the only source for tool names, scores, categories, demo references, and notes. No scores are duplicated in the page code.
 
-The CSV contains **11 tools**. The three scored profiles were visually transcribed from the supplied [source image](site/assets/source-chart.png):
+The CSV contains **12 tools**, all scored. The three anchor profiles were visually transcribed from the supplied [source image](site/assets/source-chart.png):
 
 | Tool | Idempotent | Declarative | Query | Execution | Modularity | Documentation |
 |---|---:|---:|---:|---:|---:|---:|
@@ -16,14 +16,37 @@ The CSV contains **11 tools**. The three scored profiles were visually transcrib
 
 Scores use the slide's 0–10 scale. The image does not provide a rubric, tool versions, or an assessment date. Its scores are preserved as teaching material, not presented as current independent benchmarks. The expansion of “SM” is not specified in the image.
 
-The additional 8 tools have **blank scores**, recorded as `unscored`. No numeric ratings were inferred from the mere presence of a tool in a demo. Missing values appear as dashes in the table; only tools with all six scores are plotted. A numeric zero is a real score, not a missing value. To add scores, fill the six numeric cells and update `score_source` and `notes` with the rating method, context, and review date.
+The other 9 tools were rated on 17 November 2026 (`score_source` = `rubric-2026-11-17`) against the three slide profiles as anchors, using these readings of the labels:
+
+| Criterion | What a high score means |
+|---|---|
+| Idempotent | The tool itself guarantees a repeated run makes no further changes, rather than leaving it to the author. |
+| Declarative | Most of the code states the desired result, not the steps to reach it. |
+| Query | Code can look up existing infrastructure and current state (data sources, facts, inventories). |
+| Execution | A mature engine: dependency ordering, preview before change, parallelism, and continued enforcement after the run. |
+| Modularity | Native reusable units with clear inputs and outputs, versioned and shareable. |
+| Documentation | The code and the tool document the infrastructure: typed and described inputs, readable previews, reference docs. |
+
+| Tool | Idempotent | Declarative | Query | Execution | Modularity | Documentation |
+|---|---:|---:|---:|---:|---:|---:|
+| Packer | 3 | 4 | 4 | 5 | 3 | 6 |
+| Puppet (OpenVox) | 8 | 9 | 6 | 7 | 7 | 6 |
+| Bolt (OpenBolt) | 4 | 4 | 5 | 4 | 6 | 5 |
+| Chef Infra (Cinc) | 7 | 6 | 6 | 5 | 7 | 5 |
+| Salt | 7 | 7 | 7 | 6 | 5 | 4 |
+| CDK Terrain | 9 | 7 | 7 | 7 | 8 | 4 |
+| Pulumi | 9 | 7 | 8 | 7 | 8 | 7 |
+| cloud-init | 4 | 6 | 4 | 3 | 2 | 5 |
+| Helm | 8 | 7 | 4 | 6 | 8 | 6 |
+
+Tools are rated as used in the demos (Puppet and Chef masterless, so no PuppetDB or Chef search). Each row's `notes` give the reasons. Blank cells still mean unscored and appear as dashes; only tools with all six scores are plotted. A numeric zero is a real score, not a missing value.
 
 The IaC-only inventory was reviewed on 22 September 2026 across the local demo repositories: `demo-01`, `demo-02`, `demo-03a` through `demo-03e`, `demo-04a` through `demo-04d`, `demo-05`, and `demo-06`. It includes:
 
 - Infrastructure definition, configuration, image-building, and orchestration tools.
 - Kubernetes from the source slide, clearly marked as not found as a deployment tool in the inspected demos.
 
-The scope includes tools that directly define, provision, configure, initialize, or orchestrate infrastructure from code. It excludes supporting workflow and testing tools, general-purpose CLIs and shells, version control, runtimes, package managers, container runtimes used for testing, deployed application services, and individual libraries. Packer and cloud-init remain because they define machine images and initialization; Bolt remains for infrastructure orchestration. Puppet/OpenVox and Chef/Cinc are represented as tool-family/distribution pairs; they are not counted twice. Demo references link to the private teaching repositories and require course access. No demo source contents, credentials, state files, or deployment outputs are copied here.
+The scope includes tools that directly define, provision, configure, initialize, or orchestrate infrastructure from code. Helm is included for packaging and releasing Kubernetes infrastructure. It excludes supporting workflow and testing tools, general-purpose CLIs and shells, version control, runtimes, general-purpose package managers, container runtimes used for testing, deployed application services, and individual libraries. Packer and cloud-init remain because they define machine images and initialization; Bolt remains for infrastructure orchestration. Puppet/OpenVox and Chef/Cinc are represented as tool-family/distribution pairs; they are not counted twice. Demo references link to the private teaching repositories and require course access. No demo source contents, credentials, state files, or deployment outputs are copied here.
 
 ### CSV columns
 
@@ -62,4 +85,4 @@ References: [GitHub Pages availability](https://docs.github.com/en/pages/getting
 
 ## Verification
 
-The Node tests cover the transcribed scores, missing versus zero values, CSV quoting, invalid scores, duplicate names, filters, and radar geometry. Browser checks cover desktop/mobile rendering, selection persistence, search, categories, unscored tools, and empty selections.
+The Node tests cover the transcribed and rubric scores, missing versus zero values, CSV quoting, invalid scores, duplicate names, filters, and radar geometry. Browser checks cover desktop/mobile rendering, selection persistence, search, categories, unscored tools, and empty selections.

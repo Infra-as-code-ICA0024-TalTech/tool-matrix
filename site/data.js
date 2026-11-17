@@ -48,7 +48,7 @@ export function parseMatrix(text) {
 export function isScored(tool) { return METRICS.every(([key]) => tool[key] !== null); }
 export function filterTools(tools, selected, category = '', query = '') {
   return tools.filter(tool => selected.has(tool.tool) && (!category || tool.category === category)
-    && `${tool.tool} ${tool.demos} ${tool.notes}`.toLowerCase().includes(query.toLowerCase()));
+    && tool.tool.toLowerCase().includes(query.toLowerCase()));
 }
 export function radarPoints(tool, cx = 400, cy = 310, radius = 226) {
   if (!isScored(tool)) return null;

@@ -5,6 +5,8 @@ const ns = 'http://www.w3.org/2000/svg';
 const swatches = [
   ['#c26b24', ''], ['#9b7900', '7 5'], ['#487835', '2 5'],
   ['#426aa3', ''], ['#956196', '8 3 2 3'], ['#257a80', '4 4'],
+  ['#b0413e', '1 4'], ['#5b5fc7', '10 4'], ['#7a6a3a', '3 3 9 3'],
+  ['#2f8f5b', '6 2'], ['#a3478f', ''], ['#3d7fa8', '12 3 3 3'],
 ];
 const svgElement = (tag, attrs = {}, text = '') => {
   const node = document.createElementNS(ns, tag);
@@ -18,7 +20,7 @@ const point = (radius, i) => [400 + Math.cos(-Math.PI / 2 + i * Math.PI / 3) * r
 async function start() {
   const response = await fetch('data/tool-matrix.csv');
   if (!response.ok) throw new Error(`CSV request failed (${response.status})`);
-  const tools = parseMatrix(await response.text());
+  const tools = parseMatrix(await response.text()).filter(isScored);
   const params = new URLSearchParams(location.search);
   const requested = params.getAll('tool');
   const selected = new Set(params.has('selection') ? requested : tools.map(tool => tool.tool));
@@ -34,8 +36,7 @@ async function start() {
     const checkbox = document.createElement('input'); checkbox.type = 'checkbox'; checkbox.value = tool.tool;
     checkbox.checked = selected.has(tool.tool);
     const name = document.createElement('span'); name.textContent = tool.tool;
-    const detail = document.createElement('small'); detail.textContent = isScored(tool) ? 'Slide scores available' : 'Awaiting scores';
-    name.append(detail); label.append(checkbox, name); list.append(label); labels.set(tool.tool, label);
+    label.append(checkbox, name); list.append(label); labels.set(tool.tool, label);
     checkbox.addEventListener('change', () => {
       if (checkbox.checked) selected.add(tool.tool); else selected.delete(tool.tool);
       render();
@@ -45,7 +46,6 @@ async function start() {
   function render() {
     const matching = filterTools(tools, new Set(tools.map(t => t.tool)), category.value, search.value);
     const visible = filterTools(tools, selected, category.value, search.value);
-    const scored = visible.filter(isScored);
     const visibleNames = new Set(matching.map(t => t.tool));
     for (const [name, label] of labels) {
       label.hidden = !visibleNames.has(name);
@@ -56,11 +56,9 @@ async function start() {
     if (category.value) query.set('category', category.value);
     if (search.value) query.set('q', search.value);
     history.replaceState(null, '', `${location.pathname}?${query}${location.hash}`);
-    byId('status').textContent = `${visible.length} selected · ${scored.length} plotted · ${visible.length - scored.length} awaiting complete scores`;
-    byId('empty').hidden = scored.length > 0;
-    if (!visible.length) byId('empty').textContent = 'No tools selected for these filters. Select a tool, choose Select all, or adjust your search.';
-    else byId('empty').textContent = 'These tools await complete scores. Their demo references are listed below; no missing value is plotted as zero.';
-    drawChart(scored);
+    byId('status').textContent = `${visible.length} of ${tools.length} tools selected`;
+    byId('empty').hidden = visible.length > 0;
+    drawChart(visible);
     drawTable(visible);
   }
 
@@ -102,29 +100,14 @@ async function start() {
     for (const tool of visible) {
       const row = document.createElement('tr');
       const heading = document.createElement('th'); heading.scope = 'row'; heading.textContent = tool.tool;
-      const categoryLabel = document.createElement('small'); categoryLabel.textContent = tool.category; heading.append(categoryLabel); row.append(heading);
+      row.append(heading);
       for (const [key] of METRICS) {
-        const cell = document.createElement('td'); cell.textContent = tool[key] ?? '—';
-        if (tool[key] === null) {cell.className = 'missing'; cell.setAttribute('aria-label','Not scored');}
-        row.append(cell);
+        const cell = document.createElement('td'); cell.textContent = tool[key]; row.append(cell);
       }
-      const evidence = document.createElement('td');
-      const paths = tool.evidence.split(';');
-      paths.forEach((path, i) => {
-        if (i) evidence.append(document.createTextNode(', '));
-        const link = document.createElement('a');
-        if (path === 'assets/source-chart.png') {link.href = path; link.textContent = 'Source slide';}
-        else {
-          const [repo,...rest] = path.split('/');
-          link.href = `https://github.com/Infra-as-code-ICA0024-TalTech/${encodeURIComponent(repo)}/blob/main/${rest.map(encodeURIComponent).join('/')}`;
-          link.textContent = paths.filter(p => p.startsWith(repo+'/')).length > 1 ? `${repo}/${rest.at(-1)}` : repo;
-        }
-        evidence.append(link);
-      });
-      const note = document.createElement('small'); note.textContent = tool.notes; evidence.append(note); row.append(evidence); body.append(row);
+      body.append(row);
     }
     if (!visible.length) {
-      const row = body.insertRow(), cell = row.insertCell(); cell.colSpan = 8; cell.textContent = 'No tools match your current selection.';
+      const row = body.insertRow(), cell = row.insertCell(); cell.colSpan = 7; cell.textContent = 'No tools match your current selection.';
     }
   }
   search.addEventListener('input',render); category.addEventListener('change',render);
