@@ -2,17 +2,25 @@ import { METRICS, parseMatrix, isScored, filterTools, radarPoints } from './data
 
 const byId = id => document.getElementById(id);
 const ns = 'http://www.w3.org/2000/svg';
+// XA categorical palette (rose, navy, sky, amber, green, slate, maroon and tints), one colour and
+// line pattern per tool in CSV order. The first three keep the slide's orange/ochre/green associations.
 const swatches = [
-  ['#c26b24', ''], ['#9b7900', '7 5'], ['#487835', '2 5'],
-  ['#426aa3', ''], ['#956196', '8 3 2 3'], ['#257a80', '4 4'],
-  ['#b0413e', '1 4'], ['#5b5fc7', '10 4'], ['#7a6a3a', '3 3 9 3'],
-  ['#2f8f5b', '6 2'], ['#a3478f', ''], ['#3d7fa8', '12 3 3 3'],
+  ['#d97706', ''], ['#9a6a00', '7 5'], ['#16a34a', '2 5'],
+  ['#3d496e', ''], ['#d27079', '8 3 2 3'], ['#0879ad', '4 4'],
+  ['#800000', '1 4'], ['#535c73', '10 4'], ['#8991a8', '3 3 9 3'],
+  ['#a94552', '6 2'], ['#0f6e3a', ''], ['#0ea5e9', '12 3 3 3'],
+  ['#6c7aa6', '5 2 1 2'],
 ];
 const svgElement = (tag, attrs = {}, text = '') => {
   const node = document.createElementNS(ns, tag);
   for (const [key, value] of Object.entries(attrs)) node.setAttribute(key, value);
   node.textContent = text;
   return node;
+};
+const lineSample = ([color, dash]) => {
+  const sample = svgElement('svg', {'aria-hidden':'true', viewBox:'0 0 30 10', focusable:'false'});
+  sample.append(svgElement('line', {x1:0, y1:5, x2:30, y2:5, stroke:color, 'stroke-width':3, 'stroke-dasharray':dash}));
+  return sample;
 };
 const point = (radius, i) => [400 + Math.cos(-Math.PI / 2 + i * Math.PI / 3) * radius,
   310 + Math.sin(-Math.PI / 2 + i * Math.PI / 3) * radius];
@@ -36,7 +44,9 @@ async function start() {
     const checkbox = document.createElement('input'); checkbox.type = 'checkbox'; checkbox.value = tool.tool;
     checkbox.checked = selected.has(tool.tool);
     const name = document.createElement('span'); name.textContent = tool.tool;
-    label.append(checkbox, name); list.append(label); labels.set(tool.tool, label);
+    const swatch = lineSample(swatches[tools.indexOf(tool) % swatches.length]);
+    swatch.classList.add('swatch');
+    label.append(checkbox, name, swatch); list.append(label); labels.set(tool.tool, label);
     checkbox.addEventListener('change', () => {
       if (checkbox.checked) selected.add(tool.tool); else selected.delete(tool.tool);
       render();
@@ -85,13 +95,11 @@ async function start() {
       const polygon = svgElement('polygon', {points:points.map(p => p.join(',')).join(' '),stroke:color,fill:color,'stroke-dasharray':dash,class:'profile','data-tool':tool.tool});
       polygon.append(svgElement('title',{},tool.tool)); chart.append(polygon);
       points.forEach(([x,y], i) => {
-        const dot = svgElement('circle',{cx:x,cy:y,r:4,fill:color,stroke:'#fff','stroke-width':1});
+        const dot = svgElement('circle',{cx:x,cy:y,r:4,fill:color,stroke:'#fff','stroke-width':1.5});
         dot.append(svgElement('title',{},`${tool.tool}: ${METRICS[i][1]} ${tool[METRICS[i][0]]}/10`)); chart.append(dot);
       });
       const item = document.createElement('span');
-      const sample = svgElement('svg',{'aria-hidden':'true',viewBox:'0 0 30 10'});
-      sample.append(svgElement('line',{x1:0,y1:5,x2:30,y2:5,stroke:color,'stroke-width':3,'stroke-dasharray':dash}));
-      item.append(sample, document.createTextNode(tool.tool)); legend.append(item);
+      item.append(lineSample([color, dash]), document.createTextNode(tool.tool)); legend.append(item);
     }
   }
 

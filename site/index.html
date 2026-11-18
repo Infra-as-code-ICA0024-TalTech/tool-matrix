@@ -5,31 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Explore the ICA0024 lecture tool matrix. Filter infrastructure-as-code tools, compare six criteria, and inspect the source CSV.">
   <title>Tool matrix · ICA0024</title>
+  <link rel="icon" href="data:,">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap">
   <link rel="stylesheet" href="styles.css">
   <script type="module" src="app.js"></script>
 </head>
 <body>
   <a class="skip" href="#comparison">Skip to comparison</a>
-  <header>
-    <a class="course" href="https://github.com/Infra-as-code-ICA0024-TalTech/tool-matrix">ICA0024 <span>Infrastructure as Code</span></a>
-    <a href="data/tool-matrix.csv" download>Download CSV</a>
+  <header class="xa-header">
+    <div class="wrap xa-header-row">
+      <a class="xa-header-brand" href="./" aria-label="Tool matrix home"><img src="assets/xa-logo.svg" alt="eXtreme Automation" width="108" height="26"></a>
+      <nav class="xa-header-nav" aria-label="Course"><a class="course" href="https://github.com/Infra-as-code-ICA0024-TalTech/tool-matrix">ICA0024 <span>Infrastructure as Code</span></a></nav>
+      <span class="xa-header-spacer" aria-hidden="true"></span>
+      <a class="btn btn-secondary btn-sm" href="data/tool-matrix.csv" download>Download CSV</a>
+    </div>
   </header>
-  <main>
-    <div class="intro"><h1>Tool matrix</h1><p>Explore the lecture’s six criteria. Select IaC tools to compare their profiles, then inspect the exact values below.</p></div>
-    <p id="error" role="alert" hidden></p>
-    <noscript><p>Enable JavaScript to filter the chart, or <a href="data/tool-matrix.csv">read the CSV</a>.</p></noscript>
+  <main class="wrap">
+    <div class="intro c-hero"><p class="eyebrow">ICA0024 · Infrastructure as Code</p><h1>Tool <span class="hl">matrix</span></h1><p class="lead">Explore the lecture’s six criteria. Select IaC tools to compare their profiles, then inspect the exact values below.</p></div>
+    <p id="error" class="xa-alert xa-alert-warning" role="alert" hidden></p>
+    <noscript><p class="xa-alert xa-alert-info">Enable JavaScript to filter the chart, or <a href="data/tool-matrix.csv">read the CSV</a>.</p></noscript>
     <div class="workspace">
-      <aside aria-label="Comparison filters">
+      <aside class="card" aria-label="Comparison filters">
         <label for="search">Find a tool</label><input id="search" type="search" placeholder="e.g. Packer" autocomplete="off">
         <label for="category">Tool category</label><select id="category"><option value="">All categories</option></select>
-        <div class="filter-actions"><button id="select-all" type="button">Select all</button><button id="clear" type="button">Clear</button></div>
+        <div class="filter-actions"><button id="select-all" class="btn btn-secondary btn-sm" type="button">Select all</button><button id="clear" class="btn btn-ghost btn-sm" type="button">Clear</button></div>
         <fieldset><legend>Tools</legend><div id="tool-list"><p>Loading tools…</p></div></fieldset>
       </aside>
-      <section id="comparison" aria-labelledby="chart-heading">
-        <div class="chart-heading"><h2 id="chart-heading">SM index</h2><span>0–10 scale</span></div>
+      <section id="comparison" class="card" aria-labelledby="chart-heading">
+        <div class="chart-heading"><h2 id="chart-heading">SM index</h2><span class="badge b-neutral">0–10 scale</span></div>
         <p id="status" role="status" aria-live="polite">Loading comparison…</p>
         <svg id="radar" viewBox="0 0 800 620" role="img" aria-labelledby="radar-title radar-description"></svg>
-        <p id="empty" hidden>No tools selected. Select a tool, choose Select all, or adjust your search.</p>
+        <p id="empty" class="xa-alert xa-alert-info" hidden>No tools selected. Select a tool, choose Select all, or adjust your search.</p>
         <div id="legend" class="legend" aria-label="Plotted tools"></div>
         <p class="source-note">Kubernetes, Ansible and Terraform are transcribed from the lecture slide. The other nine tools are rated on the same scale against those three as anchors (see below). These are lecture ratings, not benchmark results. <a href="assets/source-chart.png">View source chart</a>.</p>
       </section>
@@ -37,13 +45,13 @@
     <section class="values" aria-labelledby="values-heading">
       <h2 id="values-heading">Values</h2>
       <p>The table follows your filters.</p>
-      <div class="table-scroll" tabindex="0" role="region" aria-label="Tool scores and evidence"><table>
+      <div class="table-scroll xa-table-wrap" tabindex="0" role="region" aria-label="Tool scores and evidence"><table class="xa-table">
         <caption class="sr-only">Selected tools and their six scores on a scale of zero to ten.</caption>
         <thead><tr><th scope="col">Tool</th><th scope="col">Idempotent</th><th scope="col">Declarative</th><th scope="col">Query</th><th scope="col">Execution</th><th scope="col">Modularity</th><th scope="col">Documentation</th></tr></thead>
         <tbody id="values"></tbody>
       </table></div>
     </section>
-    <details class="method"><summary>About the criteria and tool inventory</summary>
+    <details class="method card"><summary>About the criteria and tool inventory</summary>
       <p>The slide supplies the labels and the three anchor profiles but no written rubric. The other tools were rated on 17 November 2026 using these readings of the labels, calibrated so the slide's own scores stay consistent:</p>
       <ul>
         <li><strong>Idempotent</strong>: how far the tool itself guarantees that a repeated run makes no further changes, rather than leaving it to the author.</li>
@@ -58,6 +66,6 @@
       <p>Edit <a href="https://github.com/Infra-as-code-ICA0024-TalTech/tool-matrix/blob/main/site/data/tool-matrix.csv">the CSV in the repository</a> to revise the catalog or add reviewed scores. Keep the scoring source and context with each row.</p>
     </details>
   </main>
-  <footer><span>ICA0024 teaching materials</span><a href="https://github.com/Infra-as-code-ICA0024-TalTech/tool-matrix">Source &amp; data</a></footer>
+  <footer class="wrap"><span>ICA0024 teaching materials</span><a href="https://github.com/Infra-as-code-ICA0024-TalTech/tool-matrix">Source &amp; data</a></footer>
 </body>
 </html>
