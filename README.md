@@ -71,7 +71,7 @@ npm run serve
 
 Open `http://localhost:8080`. The browser fetches the CSV, so serve the directory rather than opening `index.html` directly with a `file:` URL. The generated site is in `dist/`; edits belong in `site/`.
 
-VS Code tasks provide **Matrix: Validate**, **Matrix: Build**, and **Matrix: Preview**. The build task is the default build task. The preview task supports the Windows Python launcher as well as macOS/Linux `python3`.
+Commands: `just test`, `just build`, `just serve` (needs [just](https://just.systems) (`brew install just`, `winget install Casey.Just`)). Every recipe is also a VS Code task: **Terminal > Run Build Task** (Ctrl+Shift+B / Cmd+Shift+B) lists them. `just serve` uses `python` on Windows and `python3` elsewhere.
 
 ## GitHub Pages pipeline
 
