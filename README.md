@@ -41,7 +41,7 @@ The other 9 tools were rated on 17 November 2026 (`score_source` = `rubric-2026-
 
 Tools are rated as used in the demos (Puppet and Chef masterless, so no PuppetDB or Chef search). Each row's `notes` give the reasons. Blank cells still mean unscored and appear as dashes; only tools with all six scores are plotted. A numeric zero is a real score, not a missing value.
 
-The IaC-only inventory was reviewed on 22 September 2026 across the local demo repositories: `demo-01`, `demo-02`, `demo-03a` through `demo-03e`, `demo-04a` through `demo-04d`, `demo-05`, and `demo-06`. It includes:
+The IaC-only inventory was reviewed on 22 September 2026 across the local demo repositories: `demo-01-terraform-ansible-server`, `demo-02-packer-image`, `demo-03a-ansible-fleet` through `demo-03e-salt-fleet`, `demo-04a-terraform-elk` through `demo-04d-pulumi-elk`, `demo-05-ansible-role-nginx`, and `demo-06-terraform-accounts`. It includes:
 
 - Infrastructure definition, configuration, image-building, and orchestration tools.
 - Kubernetes from the source slide, clearly marked as not found as a deployment tool in the inspected demos.
